@@ -101,6 +101,22 @@ export default {
         <td class="border border-gray-200 px-4 py-3 text-gray-700">Member</td>
         <td class="border border-gray-200 px-4 py-3 text-gray-700">
           <a href="#" class="text-blue-500 hover:text-blue-700">Edit</a>
+          <span class="ml-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.67a4.5 4.5 0 01-1.022.166m-4.788 0L9.26 16.45m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 13.67a4.5 4.5 0 01-1.022.166m-4.788 0L9.26 10.45M14.74 9l-.346 9m-4.788 0L9.26 9"
+              />
+            </svg>
+          </span>
         </td>
       </tr>
       <tr>
@@ -116,6 +132,22 @@ export default {
         <td class="border border-gray-200 px-4 py-3 text-gray-700">Member</td>
         <td class="border border-gray-200 px-4 py-3 text-gray-700">
           <a href="#" class="text-blue-500 hover:text-blue-700">Edit</a>
+          <span class="ml-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.67a4.5 4.5 0 01-1.022.166m-4.788 0L9.26 16.45m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 13.67a4.5 4.5 0 01-1.022.166m-4.788 0L9.26 10.45M14.74 9l-.346 9m-4.788 0L9.26 9"
+              />
+            </svg>
+          </span>
         </td>
       </tr>
       <tr>
@@ -131,6 +163,22 @@ export default {
         <td class="border border-gray-200 px-4 py-3 text-gray-700">Member</td>
         <td class="border border-gray-200 px-4 py-3 text-gray-700">
           <a href="#" class="text-blue-500 hover:text-blue-700">Edit</a>
+          <span class="ml-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.67a4.5 4.5 0 01-1.022.166m-4.788 0L9.26 16.45m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 13.67a4.5 4.5 0 01-1.022.166m-4.788 0L9.26 10.45M14.74 9l-.346 9m-4.788 0L9.26 9"
+              />
+            </svg>
+          </span>
         </td>
       </tr>
     </tbody>

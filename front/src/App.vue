@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-full">
-    <navbar-vue></navbar-vue>
+    <navbar-vue />
     <router-view />
   </div>
 </template>
