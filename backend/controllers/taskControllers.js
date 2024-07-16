@@ -17,6 +17,11 @@ const addTask = asyncHandler(async(req, res) => {
     title,
   });
 
+  if (taskExists) {
+    res.status(422);
+    throw new Error("already exists task with this title ");
+  }
+
   //create Task
   const task = await Task.create({
     title,
