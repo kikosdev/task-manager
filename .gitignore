@@ -1,0 +1,22 @@
+/front/.DS_Store
+/front/node_modules
+/backend/node_modules
+/dist
+
+
+# local env files
+/front/.env.local
+/front/.env.*.local
+/backend/.env
+
+# Log files
+/front/npm-debug.log*
+/front/yarn-debug.log*
+/front/yarn-error.log*
+/front/pnpm-debug.log*
+
+# Editor directories and files
+/front/.idea
+/front/.vscode
+/backend/.idea
+/backend/.vscode
