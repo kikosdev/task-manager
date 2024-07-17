@@ -9,7 +9,7 @@ const state = {
 
 const getters = {
   getTasks: (state) => state.tasks,
-  getTask: (state) => state.task,
+  getTaskByID: (state) => state.task,
   getLoading: (state) => state.loading,
   getError: (state) => state.error,
 };
@@ -18,7 +18,7 @@ const mutations = {
   setTasks(state, tasks) {
     state.tasks = tasks;
   },
-  setTask(state, task) {
+  setTaskSelected(state, task) {
     state.task = task;
   },
   setLoading(state, loading) {
@@ -31,13 +31,13 @@ const mutations = {
     state.tasks.push(task);
   },
   updateTaskInState(state, updatedTask) {
-    const index = state.tasks.findIndex((task) => task.id === updatedTask.id);
+    const index = state.tasks.findIndex((task) => task._id === updatedTask.id);
     if (index !== -1) {
       state.tasks[index] = updatedTask;
     }
   },
   deleteTaskFromState(state, taskId) {
-    state.tasks = state.tasks.filter((task) => task.id !== taskId);
+    state.tasks = state.tasks.filter((task) => task._id !== taskId);
   },
 
 };
@@ -64,18 +64,20 @@ const actions = {
       commit('addTaskToState', newTask);
     } catch (error) {
       commit('setError', error);
+      throw error;
     } finally {
       commit('setLoading', false);
     }
   },
 
   // Update a task Selected 
-  async updateTask({ commit }, { id, updatedData }) {
+  async modifyTask({ commit }, updatedData) {
     commit('setLoading', true);
     try {
-      const updatedTask = await updateTask(id, updatedData);
+      const updatedTask = await updateTask( updatedData);
       commit('updateTaskInState', updatedTask);
     } catch (error) {
+      console.log(`error store ${error}`);
       commit('setError', error);
     } finally {
       commit('setLoading', false);
@@ -86,12 +88,16 @@ const actions = {
     commit('setLoading', true);
     try {
       const task = await getTaskById(taskId);
-      commit('setTask', task);
+      commit('setTaskSelected', task);
     } catch (error) {
       commit('setError', error);
     } finally {
       commit('setLoading', false);
     }
+  },
+
+  selectedTask({ commit }, task) {
+    commit('setTaskSelected', task);
   },
   
   // Delete Task by ID

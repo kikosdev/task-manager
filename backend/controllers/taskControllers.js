@@ -4,8 +4,8 @@ const Task = require('../models/taskModel')
 // @desc create new task
 // @route post /api/v1/tasks/
 const addTask = asyncHandler(async(req, res) => {
-  const { title, description, status } = req.body
-
+  const { title, description, status, dueDate } = req.body
+  console.log('######## add task ########');
   //check all fields
   if (!title || !description || !status) {
     res.status(422);
@@ -22,14 +22,17 @@ const addTask = asyncHandler(async(req, res) => {
     throw new Error("already exists task with this title ");
   }
 
+  console.log('######## create task ########');
   //create Task
   const task = await Task.create({
     title,
     description,
-    status
+    status,
+    dueDate
   });
   
   if (task) {
+    console.log('######## return task ########', task);
     res.status(201).json(task);
   } else {
     res.status(422);

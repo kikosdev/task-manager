@@ -1,28 +1,70 @@
 <script>
+import taskMixin from "@/mixins/task.mixin";
 export default {
   name: "TaskAddComponent",
+  mixins: [taskMixin],
   data() {
     return {
-      title: "",
-      description: "",
-      status: "pending",
-      dueDate: "",
+      editTask: false,
+      task: {
+        title: "",
+        description: "",
+        status: "waiting",
+        dueDate: "",
+      },
+      errors: {
+        title: false,
+        dueDate: false,
+      },
     };
   },
-  methods: {
-    handleSubmit() {
-      // Emit an event to the parent component with the task data
-      this.$emit("addTask", {
-        title: this.title,
-        description: this.description,
-        status: this.status,
-        dueDate: this.dueDate,
+  created() {
+    if (this.$route.params.id) {
+      console.log(`params id: ${this.$route.params.id}`);
+      this.editTask = true;
+      this.$store.dispatch("fetchTaskById", this.$route.params.id).then(() => {
+        console.log(this.taskSelected);
+        this.task = { ...this.taskSelected };
+        console.log(`taskSelected id: ${JSON.stringify(this.taskSelected)}`);
+        console.log(`task id: ${JSON.stringify(this.task)}`);
       });
-      // Clear form fields
-      this.title = "";
-      this.description = "";
-      this.status = "pending";
-      this.dueDate = "";
+    }
+  },
+  methods: {
+    submitTask() {
+      try {
+        this.errors.title = !this.task.title.trim();
+        this.errors.dueDate = this.task.status === "done" && !this.task.dueDate;
+
+        if (this.errors.title || this.errors.dueDate) {
+          console.log("err");
+          this.$notyf.error("check field and condition");
+          return false;
+        }
+        if (this.editTask) {
+          this.$store.dispatch("modifyTask", this.task).then(() => {
+              this.task = {};
+              this.$router.push({ name: "ListTask" });
+              this.$notyf.success("Task Updated successfully");
+            })
+            .catch((error) => {
+              this.$notyf.error(error);
+            });
+        } else {
+          this.$store
+            .dispatch("addTask", this.task)
+            .then(() => {
+              this.task = {};
+              this.$router.push({ name: "ListTask" });
+              this.$notyf.success("Task added successfully");
+            })
+            .catch((error) => {
+              this.$notyf.error(error);
+            });
+        }
+      } catch (e) {
+        this.$notyf.error(`error: ${e}`);
+      }
     },
   },
 };
@@ -31,12 +73,18 @@ export default {
   <div>
     <header class="bg-white shadow">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        <h1
+          v-if="!editTask"
+          class="text-3xl font-bold tracking-tight text-gray-900"
+        >
           Create Task
+        </h1>
+        <h1 v-else class="text-3xl font-bold tracking-tight text-gray-900">
+          Edit Task
         </h1>
       </div>
     </header>
-    <form @submit.prevent="handleSubmit">
+    <div>
       <div class="mb-4">
         <label for="title" class="block text-sm font-medium text-gray-700"
           >Title</label
@@ -44,7 +92,7 @@ export default {
         <input
           type="text"
           id="title"
-          v-model="title"
+          v-model="task.title"
           required
           class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-4 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         />
@@ -55,7 +103,7 @@ export default {
         >
         <textarea
           id="description"
-          v-model="description"
+          v-model="task.description"
           rows="4"
           class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-4 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         ></textarea>
@@ -66,31 +114,33 @@ export default {
         >
         <select
           id="status"
-          v-model="status"
+          v-model="task.status"
           class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-4 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         >
-          <option value="pending">Pending</option>
-          <option value="in progress">In Progress</option>
-          <option value="completed">Completed</option>
+          <option value="waiting">Pending</option>
+          <option value="doing">In Progress</option>
+          <option value="done">Completed</option>
+          <option value="bug">Bug</option>
         </select>
       </div>
-      <div class="mb-4">
+      <div class="mb-4" v-if="task.status == 'done'">
         <label for="dueDate" class="block text-sm font-medium text-gray-700"
           >Due Date</label
         >
         <input
           type="date"
           id="dueDate"
-          v-model="dueDate"
+          v-model="task.dueDate"
           class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-4 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         />
       </div>
       <button
         type="submit"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        @click="submitTask()"
+        class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
       >
-        Add Task
+        Save
       </button>
-    </form>
+    </div>
   </div>
 </template>

@@ -8,6 +8,7 @@ const routes = [
     path: '/tasks',
     name: 'IndexPage',
     component: IndexPage,
+    meta: { breadcrumb: 'List Task', parents: {}, icon: 'fa-solid fa-list' },
     children: [
       {
         path: '',
@@ -17,11 +18,13 @@ const routes = [
       {
         path: 'create',
         name: 'CreateTask',
+        meta: { breadcrumb: 'Create Task', parentPath: 'ListTask', icon: 'fa-solid fa-plus' },
         component: CreateComponent,
       },
       {
         path: 'edit/:id',
         name: 'updateTask',
+        meta: { breadcrumb: 'Update Task', parentPath: 'ListTask', icon: 'fa-solid fa-pencil' },
         component: CreateComponent,
       }
     ]

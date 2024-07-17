@@ -1,10 +1,16 @@
 <script>
 import SimpleTable from '@/components/base/tables/Tables.vue'
+import taskMixin from '@/mixins/task.mixin';
+
 export default {
   name: 'listTask',
+  mixins: [taskMixin],
   components: {
     SimpleTable
-  },  
+  },
+  created() {
+    this.$store.dispatch('fetchTasks')
+  },
   methods: {
     navigateToCreate() {
       this.$router.push({name: 'CreateTask'});
@@ -24,7 +30,7 @@ export default {
         </div>
 
         <div class="overflow-x-auto rounded-md shadow mt-4">
-          <simple-table />
+          <simple-table :list="tasks"/>
         </div>
       </div>
     </div>

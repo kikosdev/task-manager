@@ -15,37 +15,95 @@ if (process.env.NODE_ENV === 'production') {
 export async function getListTasks() {
   return new Promise((resolve, reject) => {
     axios.get(url + '/').then((response) => {
-      resolve(response.data.data)
-    }).catch(err => reject(err))
+      resolve(response.data)
+    }).catch(error =>{
+      if (error.response) {
+        console.error('Error:', error.response);
+        reject(`Error: ${error.response.data.message}`)
+      } else if (error.request) {
+        console.error('Request error:', error.request);
+        reject('Request error: No response received')
+      } else {
+        console.error('Request setup error:', error.message);
+        reject(`Request setup error:  ${error.message}`)
+      }
+    })
   })
 }
 
 export async function getTaskById(id) {
   return new Promise((resolve, reject) => {
     axios.get(url + `/${id}`).then((response) => {
-      resolve(response.data.data)
-    }).catch(err => reject(err))
+      resolve(response.data)
+    }).catch(error =>{
+      if (error.response) {
+        console.error('Error:', error.response);
+        reject(`Error: ${error.response.data.message}`)
+      } else if (error.request) {
+        console.error('Request error:', error.request);
+        reject('Request error: No response received')
+      } else {
+        console.error('Request setup error:', error.message);
+        reject(`Request setup error:  ${error.message}`)
+      }
+    })
   })
 }
 
 export async function addTask(task) {
   return new Promise((resolve, reject) => {
-    axios.post(url + `/`, task).then((response) => {
-      resolve(response.data.data)
-    }).catch(err => reject(err))})
+    axios.post(url + '/', task).then((response) => {
+      resolve(response.data)
+    }).catch(error =>{
+      if (error.response) {
+        console.error('Error:', error.response);
+        reject(`Error: ${error.response.data.message}`)
+      } else if (error.request) {
+        console.error('Request error:', error.request);
+        reject('Request error: No response received')
+      } else {
+        console.error('Request setup error:', error.message);
+        reject(`Request setup error:  ${error.message}`)
+      }
+    })
+  })
 }
 
 export async function updateTask(task) {
   return new Promise((resolve, reject) => {
-    axios.put(url + `/${task.id}`, task).then((response) => {
-      resolve(response.data.data)
-    }).catch(err => reject(err))})
+    console.log('update task', task);
+    axios.put(url + `/${task._id}`, task).then((response) => {
+      resolve(response.data)
+    }).catch(error =>{
+      if (error.response) {
+        console.error('Error:', error.response);
+        reject(`Error: ${error.response.data.message}`)
+      } else if (error.request) {
+        console.error('Request error:', error.request);
+        reject('Request error: No response received')
+      } else {
+        console.error('Request setup error:', error.message);
+        reject(`Request setup error:  ${error.message}`)
+      }
+    })
+  })
 }
 
 export async function deleteTask(id) {
   return new Promise((resolve, reject) => {
     axios.delete(url + `/${id}`).then((response) => {
-      resolve(response.data.data)
-    }).catch(err => reject(err))
+      resolve(response.data)
+    }).catch(error =>{
+      if (error.response) {
+        console.error('Error:', error.response);
+        reject(`Error: ${error.response.data.message}`)
+      } else if (error.request) {
+        console.error('Request error:', error.request);
+        reject('Request error: No response received')
+      } else {
+        console.error('Request setup error:', error.message);
+        reject(`Request setup error:  ${error.message}`)
+      }
+    })
   })
 }

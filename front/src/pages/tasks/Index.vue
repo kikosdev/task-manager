@@ -8,6 +8,7 @@
   </header>
   <main>
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <breadcrumb-component :breadcrumbs="breadcrumbs"></breadcrumb-component>
       <router-view />
     </div>
   </main>
@@ -15,8 +16,20 @@
 </template>
 
 <script>
+import BreadcrumbComponent from '@/components/base/breadcrumb/Breadcrumb.vue';
+
 export default {
   name: 'IndexTask',
+  components: {
+    BreadcrumbComponent
+  },
+  data () {
+    return {
+      breadcrumbs: [
+        { name: 'Tasks', path: '/tasks', icon: 'fa-solid fa-list' }
+      ]
+    }
+  }
 }
 </script>
 
